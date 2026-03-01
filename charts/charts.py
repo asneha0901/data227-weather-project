@@ -92,8 +92,7 @@ def chart_dashboard(df: pd.DataFrame) -> alt.Chart:
         .transform_filter(w_select)
         .properties(height=260)
     )
-
-    hist = (
+    hist1 = (
         alt.Chart(df)
         .mark_bar()
         .encode(
@@ -105,5 +104,27 @@ def chart_dashboard(df: pd.DataFrame) -> alt.Chart:
         .transform_filter(brush)
         .properties(height=260)
     )
+    hist2 = (
+        alt.Chart(df)
+        .mark_bar()
+        .encode(
+            x=alt.X("precipitation:Q", bin=alt.Bin(maxbins=30), title="Daily Precipitation (in)"),
+            y=alt.Y("count():Q", title="Days"),
+            tooltip=[alt.Tooltip("count():Q", title="Days")],
+        )
+        .transform_filter(w_select)
+        .transform_filter(brush)
+        .properties(height=260)
+    )
+    return alt.vconcat(line, hist1, hist2).resolve_scale(color="independent")
 
-    return alt.vconcat(line, hist).resolve_scale(color="independent")
+def chart_weather_type(df: pd.DataFrame) -> alt.Chart:
+    return (
+        alt.Chart(df)
+        .mark_bar(opacity=0.45)
+        .encode(
+            y=alt.X("count():Q", title="Count of days"),
+            x=alt.Y("weather:N", title="Weather Type"),
+            color=alt.Color("weather:N", title="Weather")
+        )
+    )

@@ -11,6 +11,7 @@ st.write("Use interaction to validate and extend the story—focus on one weathe
 st.altair_chart(chart_dashboard(df), use_container_width=True)
 
 st.markdown("**Guided prompts:**")
-st.write("- Filter to one weather type (e.g., `sun`, `rain`)—does the temperature distribution shift?")
+st.write("- Filter to one weather type (e.g., `sun`, `rain`)—does the temperature or precipitation distribution shift?")
 st.write("- Brush a specific year—do extremes cluster in particular periods?")
 st.write("- Compare histogram shape across weather types—what changes most: center, spread, or tails?")
+st.write("- For my interactive addition, I decided to follow the theme and add a selection that filters for precipitation distribution instead of temperature")
